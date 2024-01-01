@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === "true") {
@@ -33,15 +32,8 @@ if (isset($_POST["login-submit"])) {
 
   if (empty($_user_email)) {
     $user_email_err = "User Email is required";
-    $has_err = true;}
-  //  elseif (!is_numeric($_user_email)) {
-  //   $user_email_err = "User Id must be numeric";
-  //   $has_err = true;
-  // }elseif (!is_($_user_email)) {
-  //   $user_email_err = "User Id must be string";
-  //   $has_err = true;
-  // }
-  else {
+    $has_err = true;
+  } else {
     $user_email = $_user_email;
   }
 
@@ -94,11 +86,6 @@ if (isset($_POST["login-submit"])) {
       );
     }
 
-    // echo "<pre>";
-    // var_dump($user_type, $user);
-    // echo "</pre>";
-    // exit();
-
     if ($user != null || (is_array($user) && count($user) > 0)) {
       $_SESSION["user_email"] = $user_email;
       $_SESSION["user_name"] = $name;
@@ -117,67 +104,67 @@ function sanitize_input($input)
   return htmlentities(htmlspecialchars(trim($input)));
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><?php echo $title ?? ""; ?></title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>  
-    <div class="main">
-<header>
-  <h1>Central Blood Bank</h1>
-</header>
-<main>
-  <form method="post">
-    <label></label>
-    <div>
-      <p>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <title><?php echo $title ?? ""; ?></title>
+</head>
+
+<body class="bg-gray-600 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white bg-opacity-80 p-8 rounded-md shadow-md max-w-md w-full">
+    <div class="mb-4">
+      <p class="text-red-500">
         <?php echo isset($message) && !empty($message) ? $message : ""; ?>
       </p>
     </div>
-    <label for="user_type">User Type: </label>
-    <div>
-      <select name="user_type" id="user_type">
+
+    <div class="mb-4">
+      <label for="user_type" class="block text-gray-700">User Type:</label>
+      <select name="user_type" id="user_type" class="mt-1 block w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
         <option value="">You are!</option>
         <option value="patient">Patient</option>
         <option value="donor">Donor</option>
         <option value="bloodbank">Blood Bank</option>
         <option value="executive">Executive</option>
-        
       </select>
-      <p class="error">
+      <p class="text-red-500">
         <?php echo isset($user_type_err) ? $user_type_err : ""; ?>
       </p>
     </div>
 
-    <label for="name">Name: </label>
-    <div>
-      <input type="text" name="name" id="name" />
-      <p class="error">
+    <div class="mb-4">
+      <label for="name" class="block text-gray-700">Name:</label>
+      <input type="text" name="name" id="name" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+      <p class="text-red-500">
         <?php echo isset($name_err) ? $name_err : ""; ?>
       </p>
     </div>
 
-    <label for="user_email">Email: </label>
-    <div>
-      <input type="text" name="user_email" id="user_email" />
-      <p class="error">
+    <div class="mb-4">
+      <label for="user_email" class="block text-gray-700">Email:</label>
+      <input type="text" name="user_email" id="user_email" class="mt-1 p-2 w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+      <p class="text-red-500">
         <?php echo isset($user_email_err) ? $user_email_err : ""; ?>
       </p>
     </div>
 
-    <input type="submit" id="login-submit" name="login-submit" value="Login" />
-    <br>
-    <br>
-    <br>
-    <h6> If you don't have account->
-   
-    <a href="./common/signup.php">Signup</a>
-    </h6>
-  </form>
-</main>
+    <button type="submit" id="login-submit" name="login-submit" class="mt-2 w-full bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none focus:ring focus:border-purple-300 active:bg-purple-800">
+      Login
+    </button>
 
-<?php include_once("./templates/footer.php");
+    <div class="mt-4">
+      <span class="text-right">
+        <a href="./common/signup.php" class="inline-block">Not a member? Sign Up</a>
+      </span>
+    </div>
+  </div>
+
+</body>
+
+</html>
