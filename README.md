@@ -1,5 +1,8 @@
 # Blood_Donation_php_oracle_10
 
+
+first logout from the current user in oracle 10g then login as system, then create a new user as centralbloodbank
+
 SQL Comman on Oracle 10g
 
 CREATE USER centralbloodbank
